@@ -1,0 +1,57 @@
+{
+    "manifest_version": 3,
+    "name": "Forms complete dynamique",
+    "version": "1.0.0",
+    "short_name": "Stform",
+    "author": "Stephanos",
+    "description": "Une extension de gestion dynamique des formulaires",
+    "action": {
+        "default_title": "stform",
+        "default_icon": "img/step.png"
+    },
+    "options_page": "options.html",
+    "options_ui": {
+        "page": "options.html",
+        "open_in_tab": true
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "tabs",
+        "background",
+        "storage"
+    ],
+    "icons": {
+        "128": "img/logo128.png"
+    },
+    "content_scripts": [
+        {
+            "run_at": "document_end",
+            "matches": [
+                "https://conferfly.com/*",
+                "https://meet.google.com/*",
+                "https://teams.microsoft.com/*",
+                "https://*.zoom.us/*"
+            ],
+            "js": [
+                "js/main.js",
+                "js/injected.js"
+            ],
+            "css": [
+                "css/main.css"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": ["js/options.js","js/main.js","js/injected.js"],
+            "matches": [],
+            "extension_ids": []
+        }
+    ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'; script-src-elem 'self'",
+        "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval'; child-src 'self'; script-src-elem 'self' https://maps.googleapis.com"
+    }
+} 
